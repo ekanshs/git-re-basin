@@ -103,7 +103,7 @@ def main():
 
   with wandb.init(
       project="playing-the-lottery",
-      entity="skainswo",
+      entity="ekanshs",
       tags=["mnist", "mlp", "training"],
       mode="disabled" if args.test else "online",
       job_type="train",
@@ -111,7 +111,7 @@ def main():
     artifact = wandb.Artifact("mnist-mlp-weights", type="model-weights")
 
     config = wandb.config
-    config.ec2_instance_type = ec2_get_instance_type()
+    # config.ec2_instance_type = ec2_get_instance_type()
     config.test = args.test
     config.seed = args.seed
     config.optimizer = args.optimizer
@@ -148,7 +148,7 @@ def main():
           # including the warmup.
           decay_steps=config.num_epochs * (num_train_examples // config.batch_size),
       )
-      tx = optax.sgd(lr_schedule, momentum=0.9)
+      tx = optax.sgd(lr_schedule, momentum=0.0)
     elif config.optimizer == "adam":
       # See runs:
       # - https://wandb.ai/skainswo/playing-the-lottery/runs/1b1gztfx (trim-fire-575)

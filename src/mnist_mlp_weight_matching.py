@@ -12,9 +12,9 @@ from tqdm import tqdm
 from mnist_mlp_train import MLPModel, load_datasets, make_stuff
 from utils import ec2_get_instance_type, flatten_params, lerp, unflatten_params
 from weight_matching import (apply_permutation, mlp_permutation_spec, weight_matching)
-
 def plot_interp_loss(epoch, lambdas, train_loss_interp_naive, test_loss_interp_naive,
                      train_loss_interp_clever, test_loss_interp_clever):
+
   fig = plt.figure()
   ax = fig.add_subplot(111)
   ax.plot(lambdas,
@@ -102,7 +102,7 @@ def main():
 
   with wandb.init(
       project="playing-the-lottery",
-      entity="skainswo",
+      entity="ekanshs",
       tags=["mnist", "mlp", "weight-matching"],
       job_type="analysis",
   ) as wandb_run:

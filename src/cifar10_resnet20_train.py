@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
   with wandb.init(
       project="playing-the-lottery",
-      entity="skainswo",
+      entity="ekanshs",
       tags=["cifar10", "resnet", "training"],
       mode="disabled" if args.test else "online",
       job_type="train",
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     config.test = args.test
     config.seed = args.seed
     config.data_split = args.data_split
-    config.learning_rate = 0.1
+    config.learning_rate = 0.01
     config.num_epochs = 10 if args.test else 250
     config.batch_size = 100
     config.width_multiplier = args.width_multiplier

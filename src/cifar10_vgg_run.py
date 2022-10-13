@@ -39,7 +39,8 @@ def make_vgg(backbone_layers, classifier_width: int, norm):
   class VGG(nn.Module):
 
     @nn.compact
-    def __call__(self, x):
+    def __call__(self, x
+    ):
       for l in backbone_layers:
         if isinstance(l, int):
           x = nn.Conv(features=l, kernel_size=(3, 3))(x)
@@ -170,7 +171,7 @@ def init_train_state(rng, model, learning_rate, num_epochs, batch_size, num_trai
   warmup_epochs = 1
   steps_per_epoch = num_train_examples // batch_size
   lr_schedule = optax.warmup_cosine_decay_schedule(
-      init_value=1e-6,
+      init_value=1e-2,
       peak_value=learning_rate,
       warmup_steps=warmup_epochs * steps_per_epoch,
       # Confusingly, `decay_steps` is actually the total number of steps,
@@ -178,6 +179,7 @@ def init_train_state(rng, model, learning_rate, num_epochs, batch_size, num_trai
       decay_steps=num_epochs * steps_per_epoch,
   )
   tx = optax.chain(optax.add_decayed_weights(5e-4), optax.sgd(lr_schedule, momentum=0.9))
+  # tx = optax.sgd(1e-3, momentum=0.9)
   # tx = optax.adamw(learning_rate=lr_schedule, weight_decay=5e-4)
   vars = model.init(rng, jnp.zeros((1, 32, 32, 3)))
   return TrainState.create(apply_fn=model.apply, params=vars["params"], tx=tx)
@@ -191,7 +193,7 @@ if __name__ == "__main__":
 
   with wandb.init(
       project="playing-the-lottery",
-      entity="skainswo",
+      entity="ekanshs",
       tags=["cifar10", "vgg16"],
       mode="disabled" if args.test else "online",
       job_type="train",
@@ -249,7 +251,7 @@ if __name__ == "__main__":
       # Evaluate test loss/accuracy
       with timeblock("Test set eval"):
         test_loss, test_accuracy = stuff["dataset_loss_and_accuracy"](train_state.params, test_ds,
-                                                                      1000)
+                                                                      5000)
 
       # See https://github.com/wandb/client/issues/3690.
       wandb_run.log({

@@ -113,7 +113,7 @@ def main():
 
   with wandb.init(
       project="playing-the-lottery",
-      entity="skainswo",
+      entity="ekanshs",
       tags=["cifar10", "vgg16", "weight-matching"],
       job_type="analysis",
   ) as wandb_run:
@@ -124,6 +124,7 @@ def main():
     config.seed = args.seed
     config.width_multiplier = args.width_multiplier
     config.load_epoch = 99
+    # config.load_epoch = 149
 
     # model = VGG16Wide()
     model = make_vgg_width_ablation(config.width_multiplier)

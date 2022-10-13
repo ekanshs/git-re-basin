@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
   with wandb.init(
       project="playing-the-lottery",
-      entity="skainswo",
+      entity="ekanshs",
       tags=["cifar10", "resnet20", "weight-matching"],
       job_type="analysis",
   ) as wandb_run:
